@@ -1,5 +1,5 @@
 
-const backendDomain = "http://localhost:8000/api";
+const backendDomain = "https://shopping-cart-backend-2bp3.onrender.com/api/";
 
 
 const endPoints = {

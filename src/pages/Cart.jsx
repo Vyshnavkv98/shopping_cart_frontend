@@ -103,15 +103,21 @@ const Cart = () => {
     const totalPrice = data?.reduce((prev, current) => prev + (current?.quantity * current?.productId?.sellingPrice), 0);
 
 
-    const handlePayment=async()=>{
+    const handlePayment=async(e)=>{
         try {
+            e.preventDefault()
+            console.log('enterersd');
+            let response = await axios.post(endPoints?.payment.url, {cartItems:data,totalAmount:displayCurrency(0)}, { withCredentials: true });
+            console.log(response.data);
             
         } catch (error) {
             console.log(error);
             
         }
     }
-
+useEffect(()=>{
+    console.log(data);
+},[data])
 
 
 
@@ -198,7 +204,7 @@ const Cart = () => {
                                     <p className='text-slate-400 font-semibold cursor-default'>{displayCurrency(0)}</p>
                                 </div>
 
-                                <div className='bg-slate-400 w-full h-12 flex items-center justify-center'>
+                                <div onClick={(e)=>handlePayment(e)} className='bg-slate-400 w-full h-12 flex items-center justify-center'>
                                     <button className=' text-slate-500 font-semibold text-xl cursor-default'> <MdOutlinePayment /></button>
                                     <p className='text-slate-500 font-semibold text-lg m-1 cursor-default'>Payment</p>
                                 </div>
@@ -221,8 +227,8 @@ const Cart = () => {
                                         <p className='text-slate-600 font-semibold'>{displayCurrency(totalPrice)}</p>
                                     </div>
 
-                                    <div className='bg-blue-600 w-full h-12 flex items-center justify-center cursor-pointer hover:bg-blue-700'>
-                                        <button onClick={handlePayment} className=' text-white font-semibold text-xl'> <MdOutlinePayment /></button>
+                                    <div onClick={(e)=>handlePayment(e)} className='bg-blue-600 w-full h-12 flex items-center justify-center cursor-pointer hover:bg-blue-700'>
+                                        <button className=' text-white font-semibold text-xl'> <MdOutlinePayment /></button>
                                         <p className='text-white font-semibold text-lg m-1'>Payment</p>
                                     </div>
 
